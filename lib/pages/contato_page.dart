@@ -103,6 +103,7 @@ class _ContatoPageState extends State<ContatoPage> {
            Navigator.pop(context, this._contatoEditado);
          }
          else{
+           _exibeDialog();
            FocusScope.of(context).requestFocus(_nomeFocus);
          }
 
@@ -110,5 +111,24 @@ class _ContatoPageState extends State<ContatoPage> {
         },
       ),
     );
+  }
+
+
+  void _exibeDialog(){
+    showDialog(context: context,
+    builder: (BuildContext context){
+      return AlertDialog(
+       title: Text('Nome'),
+        content: Text('Porfavor, preencha o campo nome'),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Fechar'),
+            onPressed: (){
+              Navigator.of(context).pop();
+            },
+          )
+        ],
+      );
+    });
   }
 }
