@@ -87,7 +87,7 @@ class ContatoHelper{
     Database db = await this.database;
    return  await db.update(contatoTable,
        contato.toMap(),
-       where:"$colId = ?",
+       where:'$colId = ?',
        whereArgs: [contato.id] );
 
   }

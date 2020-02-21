@@ -1,8 +1,7 @@
 import 'dart:io';
-
 import 'package:agenda_app/helper/ContatoHelper.dart';
+import 'package:agenda_app/pages/contato_page.dart';
 import 'package:flutter/material.dart';
-import 'package:agenda_app/helper/ContatoHelper.dart';
 import 'package:agenda_app/model/Contato.dart';
 
 class Home extends StatefulWidget {
@@ -17,11 +16,8 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    contatoHelper.getContatos().then((list) {
-      setState(() {
-        contatos = list;
-      });
-    });
+    _getAllContatos();
+
   }
 
   @override
@@ -37,7 +33,9 @@ class _HomeState extends State<Home> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         backgroundColor: Colors.redAccent,
-        onPressed: () {},
+        onPressed: () {
+          _showContatoPage();
+        },
       ),
       body: ListView.builder(
           padding: EdgeInsets.all(10.0),
@@ -60,9 +58,12 @@ class _HomeState extends State<Home> {
                 height: 80.0,
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    image: contatos[index].imagem != null
+                    image: DecorationImage(
+                    image:contatos[index].imagem != null
                         ? FileImage(File(contatos[index].imagem))
-                        : AssetImage('imagem/icons8-nome-64.png')),
+                        : AssetImage('imagem/icons8-nome-64.png') ,
+                        fit: BoxFit.cover
+                    )),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 10.0),
@@ -81,7 +82,35 @@ class _HomeState extends State<Home> {
             ],
           ),
         ),
+
       ),
+      onTap: (){
+        _showContatoPage(c: contatos[index]);
+      },
     );
+  }
+
+  void _getAllContatos(){
+    contatoHelper.getContatos().then((list) {
+      setState(() {
+        contatos = list;
+      });
+    });
+  }
+
+
+  void _showContatoPage({Contato c}) async {
+    final contatoRecebido = await Navigator.push(context, MaterialPageRoute(builder: (context) => ContatoPage(contato: c,)));
+
+    if (contatoRecebido != null) {
+      if (c != null){
+        await contatoHelper.updateContato(contatoRecebido);
+      }
+      else{
+        await contatoHelper.insert(contatoRecebido);
+      }
+
+      _getAllContatos();
+    }
   }
 }
