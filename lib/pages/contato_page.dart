@@ -1,45 +1,47 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:agenda_app/model/Contato.dart';
+import 'package:agenda_app/model/Contact.dart';
 
 class ContatoPage extends StatefulWidget {
-  final Contato contato;
+  final Contact contact;
 
-  ContatoPage({this.contato});
+  ContatoPage({this.contact});
 
   @override
   _ContatoPageState createState() => _ContatoPageState();
 }
 
 class _ContatoPageState extends State<ContatoPage> {
-  Contato _contatoEditado;
-  bool _textEditado = false;
-  final _nomeController = TextEditingController();
+  Contact _editedContact;
+  bool _editedText = false;
+  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
-  final _telefoneController = TextEditingController();
+  final _phoneController = TextEditingController();
   final _nomeFocus = FocusNode();
 
   @override
   void initState() {
     super.initState();
 
-    if (widget.contato == null) {
-      this._contatoEditado = Contato();
+    if (widget.contact == null) {
+      this._editedContact = Contact();
     } else {
-      this._contatoEditado = Contato.fromMap(widget.contato.toMap());
-      _nomeController.text = this._contatoEditado.nome;
-      _emailController.text = this._contatoEditado.email;
-      _telefoneController.text = this._contatoEditado.telefone;
+      this._editedContact = Contact.fromMap(widget.contact.toMap());
+      _nameController.text = this._editedContact.name;
+      _emailController.text = this._editedContact.email;
+      _phoneController.text = this._editedContact.phone;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: _chamaPopUp,
+      onWillPop: () {
+        return _showPopUp(context);
+      },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(_contatoEditado.nome ?? 'Novo Contato'),
+          title: Text(_editedContact.name ?? 'New Contact'),
           backgroundColor: Colors.redAccent,
           centerTitle: true,
         ),
@@ -55,20 +57,20 @@ class _ContatoPageState extends State<ContatoPage> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                          image: _contatoEditado.imagem != null
-                              ? FileImage(File(_contatoEditado.imagem))
+                          image: _editedContact.image != null
+                              ? FileImage(File(_editedContact.image))
                               : AssetImage('imagem/icons8-nome-64.png')),
                     )),
               ),
               TextField(
-                controller: _nomeController,
+                controller: _nameController,
                 focusNode: _nomeFocus,
                 keyboardType: TextInputType.text,
-                decoration: InputDecoration(labelText: 'Nome'),
+                decoration: InputDecoration(labelText: 'Name'),
                 onChanged: (text) {
-                  _textEditado = true;
+                  _editedText = true;
                   setState(() {
-                    _contatoEditado.nome = text;
+                    _editedContact.name = text;
                   });
                 },
               ),
@@ -77,17 +79,17 @@ class _ContatoPageState extends State<ContatoPage> {
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(labelText: 'Email'),
                 onChanged: (text) {
-                  _textEditado = true;
-                  _contatoEditado.email = text;
+                  _editedText = true;
+                  _editedContact.email = text;
                 },
               ),
               TextField(
-                controller: _telefoneController,
+                controller: _phoneController,
                 keyboardType: TextInputType.phone,
-                decoration: InputDecoration(labelText: 'Telefone'),
+                decoration: InputDecoration(labelText: 'Phone'),
                 onChanged: (text) {
-                  _textEditado = true;
-                  _contatoEditado.telefone = text;
+                  _editedText = true;
+                  _editedContact.phone = text;
                 },
               ),
             ],
@@ -97,11 +99,11 @@ class _ContatoPageState extends State<ContatoPage> {
           child: Icon(Icons.save),
           backgroundColor: Colors.redAccent,
           onPressed: () {
-            if (this._contatoEditado.nome != null &&
-                this._contatoEditado.nome.isNotEmpty) {
-              Navigator.pop(context, this._contatoEditado);
+            if (this._editedContact.name != null &&
+                this._editedContact.name.isNotEmpty) {
+              Navigator.pop(context, this._editedContact);
             } else {
-              _exibeDialog();
+              _showDialog(context);
               FocusScope.of(context).requestFocus(_nomeFocus);
             }
           },
@@ -110,23 +112,23 @@ class _ContatoPageState extends State<ContatoPage> {
     );
   }
 
-  Future<bool> _chamaPopUp() {
-    if (_textEditado) {
+  Future<bool> _showPopUp(BuildContext context) {
+    if (_editedText) {
       showDialog(
           context: context,
-          builder: (BuildContext context) {
+          builder: (context) {
             return AlertDialog(
-                title: Text('Descartar Alterações?'),
-                content: Text('Se confirmar as alterações não serão salvas.'),
+                title: Text('Dicard Changes?'),
+                content: Text('The changes will be discarded'),
                 actions: <Widget>[
                   FlatButton(
-                    child: Text('Cancelar'),
+                    child: Text('Cancel'),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   FlatButton(
-                      child: Text('Aceitar'),
+                      child: Text('Accept'),
                       onPressed: () {
                         Navigator.pop(context);
                         Navigator.pop(context);
@@ -139,16 +141,16 @@ class _ContatoPageState extends State<ContatoPage> {
     }
   }
 
-  void _exibeDialog() {
+  void _showDialog(BuildContext context) {
     showDialog(
         context: context,
-        builder: (BuildContext context) {
+        builder: (context) {
           return AlertDialog(
-            title: Text('Nome'),
-            content: Text('Porfavor, preencha o campo nome'),
+            title: Text('Name'),
+            content: Text('Fill the name field'),
             actions: <Widget>[
               FlatButton(
-                child: Text('Fechar'),
+                child: Text('Close'),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
