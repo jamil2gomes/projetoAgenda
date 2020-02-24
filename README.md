@@ -1,16 +1,23 @@
-# agenda_app
+# Agenda de Contatos
 
-Agenda de Contatos 
+Uma agenda de contatos utilizando persistencia de dados com sqlite
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## Funcionamento
 
-A few resources to get you started if this is your first Flutter project:
+![alt text](https://github.com/jamil2gomes/projetoAgenda/blob/master/imagens_app/telainicial.jpeg)
+- A imagem acima mostra a tela inicial. Uma lista de contatos com imagem, nome, email e telefone
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+![alt text](https://github.com/jamil2gomes/projetoAgenda/blob/master/imagens_app/opcoes.jpeg)
+- Ao clicar em um item da lista uma lista de opções aparecerá. Ao apertar em ligar será direcionado ao sistema de ligação do celular;
+ ao clicar editar será direcionado para imagem abaixo com o formulário preenchido com as informações;
+ ao clicar deletar o contato selecionado será apagado e a lista atualizada.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+ ![alt text](https://github.com/jamil2gomes/projetoAgenda/blob/master/imagens_app/edicaosalvar.jpeg)
+ Quando clicar em no botão novo o usuário sera direcionado para o formulário onde poderá preencher os dados. Ao clicar na imagem abrirá a galeria do celular onde o usuário poderá escolher uma imagem
+
+ ![alt text](https://github.com/jamil2gomes/projetoAgenda/blob/master/imagens_app/sairdatelasemsalvar.jpeg)
+ Ao sair da tela sem terminar uma edição uma mensagem aparecerá
+
+ ![alt text](https://github.com/jamil2gomes/projetoAgenda/blob/master/imagens_app/ordena.jpeg)
+ Por fim, o usuário pode ordenar a lista em ordem alfabética ou não ao clicar no menu e escolher uma das opções

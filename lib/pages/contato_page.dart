@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:agenda_app/model/Contact.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ContatoPage extends StatefulWidget {
   final Contact contact;
@@ -57,10 +58,22 @@ class _ContatoPageState extends State<ContatoPage> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                          image: _editedContact.image != null
+                          image: _editedContact.image != null //caso o usuario não tenha imagem ele utiliza imagem padrao
                               ? FileImage(File(_editedContact.image))
-                              : AssetImage('imagem/icons8-nome-64.png')),
+                              : AssetImage('imagem/user.png'),
+                          fit: BoxFit.cover),
                     )),
+                onTap: () {
+                  ImagePicker.pickImage(source: ImageSource.gallery) //busca imagem na galeria
+                      .then((file) {
+                    if (file == null)
+                      return;
+                    else
+                      setState(() {
+                        _editedContact.image = file.path;
+                      });
+                  });
+                },
               ),
               TextField(
                 controller: _nameController,
