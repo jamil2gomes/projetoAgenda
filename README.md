@@ -13,11 +13,11 @@ Uma agenda de contatos utilizando persistencia de dados com sqlite
  ao clicar editar será direcionado para imagem abaixo com o formulário preenchido com as informações;
  ao clicar deletar o contato selecionado será apagado e a lista atualizada.
 
- ![alt text](https://github.com/jamil2gomes/projetoAgenda/blob/master/imagem_app/edicaosalvar.jpeg)
- Quando clicar em no botão novo o usuário sera direcionado para o formulário onde poderá preencher os dados. Ao clicar na imagem abrirá a galeria do celular onde o usuário poderá escolher uma imagem
+![alt text](https://github.com/jamil2gomes/projetoAgenda/blob/master/imagem_app/edicaosalvar.jpeg)
+- Quando clicar em no botão novo o usuário sera direcionado para o formulário onde poderá preencher os dados. Ao clicar na imagem abrirá a galeria do celular onde o usuário poderá escolher uma imagem
 
- ![alt text](https://github.com/jamil2gomes/projetoAgenda/blob/master/imagem_app/sairdatelasemsalvar.jpeg)
- Ao sair da tela sem terminar uma edição uma mensagem aparecerá
+![alt text](https://github.com/jamil2gomes/projetoAgenda/blob/master/imagem_app/sairdatelasemsalvar.jpeg)
+- Ao sair da tela sem terminar uma edição uma mensagem aparecerá
 
- ![alt text](https://github.com/jamil2gomes/projetoAgenda/blob/master/imagem_app/ordena.jpeg)
- Por fim, o usuário pode ordenar a lista em ordem alfabética ou não ao clicar no menu e escolher uma das opções
+![alt text](https://github.com/jamil2gomes/projetoAgenda/blob/master/imagem_app/ordena.jpeg)
+- Por fim, o usuário pode ordenar a lista em ordem alfabética ou não ao clicar no menu e escolher uma das opções
