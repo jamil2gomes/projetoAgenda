@@ -32,6 +32,7 @@ class _HomeState extends State<Home> {
         actions: <Widget>[
           PopupMenuButton<OrderOptions>(
           itemBuilder: (context)=><PopupMenuEntry<OrderOptions>>[
+
             const PopupMenuItem<OrderOptions>(
                 child: Text('Ordena A-z'),
               value: OrderOptions.orderaz,
@@ -175,19 +176,10 @@ class _HomeState extends State<Home> {
   }
 
   void _showContatoPage({Contact c}) async {
-    final contactReceived = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ContatoPage(
-                  contact: c,
-                )));
+    final contactReceived = await Navigator.push(context, MaterialPageRoute(builder: (context) => ContatoPage(contact: c)));
 
     if (contactReceived != null) {
-      if (c != null) {
-        await contactHelper.update(contactReceived);
-      } else {
-        await contactHelper.insert(contactReceived);
-      }
+      c != null ? await contactHelper.update(contactReceived) : await contactHelper.insert(contactReceived);
 
       _getAllContacts();
     }

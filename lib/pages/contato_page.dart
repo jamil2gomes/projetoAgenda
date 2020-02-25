@@ -14,11 +14,11 @@ class ContatoPage extends StatefulWidget {
 
 class _ContatoPageState extends State<ContatoPage> {
   Contact _editedContact;
-  bool _editedText = false;
-  final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _phoneController = TextEditingController();
-  final _nomeFocus = FocusNode();
+  bool  _editedText       = false;
+  final _nameController   = TextEditingController();
+  final _emailController  = TextEditingController();
+  final _phoneController  = TextEditingController();
+  final _nomeFocus        = FocusNode();
 
   @override
   void initState() {
@@ -27,8 +27,8 @@ class _ContatoPageState extends State<ContatoPage> {
     if (widget.contact == null) {
       this._editedContact = Contact();
     } else {
-      this._editedContact = Contact.fromMap(widget.contact.toMap());
-      _nameController.text = this._editedContact.name;
+      this._editedContact   = Contact.fromMap(widget.contact.toMap());
+      _nameController.text  = this._editedContact.name;
       _emailController.text = this._editedContact.email;
       _phoneController.text = this._editedContact.phone;
     }
@@ -64,10 +64,8 @@ class _ContatoPageState extends State<ContatoPage> {
                           fit: BoxFit.cover),
                     )),
                 onTap: () {
-                  ImagePicker.pickImage(source: ImageSource.gallery) //busca imagem na galeria
-                      .then((file) {
-                    if (file == null)
-                      return;
+                  ImagePicker.pickImage(source: ImageSource.gallery).then((file) { //busca imagem na galeria
+                    if (file == null) return;
                     else
                       setState(() {
                         _editedContact.image = file.path;
@@ -77,7 +75,7 @@ class _ContatoPageState extends State<ContatoPage> {
               ),
               TextField(
                 controller: _nameController,
-                focusNode: _nomeFocus,
+                focusNode:  _nomeFocus,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(labelText: 'Name'),
                 onChanged: (text) {
@@ -112,8 +110,7 @@ class _ContatoPageState extends State<ContatoPage> {
           child: Icon(Icons.save),
           backgroundColor: Colors.redAccent,
           onPressed: () {
-            if (this._editedContact.name != null &&
-                this._editedContact.name.isNotEmpty) {
+            if (this._editedContact.name != null && this._editedContact.name.isNotEmpty) {
               Navigator.pop(context, this._editedContact);
             } else {
               _showDialog(context);
